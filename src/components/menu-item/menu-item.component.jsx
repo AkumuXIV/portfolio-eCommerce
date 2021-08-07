@@ -1,14 +1,16 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import './menu-item.styles.scss';
 
 //const MenuItem = ({ title }) => {...}
 const MenuItem = (props) => {
     //can also destructure in the method definition itself.
-    const { title, imageUrl, size } = props;
-    //syle allows for modifying css style stuff dynamically.
+    const { title, imageUrl, size, history, linkUrl, match } = props;
+    //syle allows for modifying css style stuff dynamically. 
     return (
-        <div className={`${size} menu-item`}>
+        <div className={`${size} menu-item`} 
+             onClick={() => history.push(`${match.url}${linkUrl}`)}>
             <div className='background-image'
             style={{
                 backgroundImage: `url(${imageUrl})`
@@ -22,4 +24,4 @@ const MenuItem = (props) => {
     );
 };
 
-export default MenuItem;
+export default withRouter(MenuItem);
