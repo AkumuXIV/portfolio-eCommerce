@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import styled from 'styled-components';
 
 import './App.css';
 
@@ -20,7 +21,7 @@ class App extends React.Component {
   unsubscribeFromSnapshot = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, collectionsArray } = this.props;
 
     //auth subscription.  keeps session
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
