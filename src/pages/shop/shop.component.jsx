@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -11,23 +11,18 @@ import { fetchCollectionsStart } from '../../redux/shop/shop.actions';
 
 import './shop.styles.scss';
 
-class ShopPage extends React.Component {
-    componentDidMount() {
-        const { fetchCollectionsStart } = this.props;
+const ShopPage = ({ fetchCollectionsStart, match }) => {
+    useEffect(() => {
         fetchCollectionsStart();
-    }
+    }, [fetchCollectionsStart]);
 
-    render() {
-        const { match } = this.props;
-        // const { isLoading } = this.state;
-        return (
-            <div className='shop-page'>
-                <Route exact path={`${match.path}`} component={CollectionsOverviewContainer} />
-                <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer} />
-            </div>
-        );
-    }
-}
+    return (
+        <div className='shop-page'>
+            <Route exact path={`${match.path}`} component={CollectionsOverviewContainer} />
+            <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer} />
+        </div>
+    );
+};
 
 const mapDispatchToProps = dispatch => ({
     fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
